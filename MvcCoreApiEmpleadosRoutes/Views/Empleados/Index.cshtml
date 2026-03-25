@@ -1,0 +1,47 @@
+﻿@model List<Empleado>
+
+<h1>Empleados Index</h1>
+
+@if (Model != null)
+{
+    <form method="post">
+        <select class="form-control" name="oficio">
+            <option value="">--Selecciona un oficio--</option>
+            @foreach (string oficio in ViewBag.Oficios)
+            {
+            <option value="@oficio">@oficio</option>
+            }
+        </select>
+        <button class="btn btn-primary">Filtrar</button>
+    </form>
+
+    <table class="table table-secondary">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Apellido</th>
+                <th>Oficio</th>
+                <th>Salario</th>
+                <th>IdDepartamento</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Empleado emp in Model)
+            {
+                <tr>
+                    <td>@emp.IdEmpleado</td>
+                    <td>@emp.Apellido</td>
+                    <td>@emp.Oficio</td>
+                    <td>@emp.Salario</td>
+                    <td>@emp.IdDepartamento</td>
+                    <td><a asp-action="Detalles" asp-controller="Empleados" asp-route-idempleado="@emp.IdEmpleado" class="btn btn-info">Detalles</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2 style="color:red">No hay datos disponibles</h2>
+}
